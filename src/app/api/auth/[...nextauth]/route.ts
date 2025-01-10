@@ -1,11 +1,14 @@
-import NextAuth, { type NextAuthOptions } from "next-auth";
+import NextAuth, { User, type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { PrismaClient, User } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { compare } from "bcrypt";
 
 const prisma = new PrismaClient()
 
 export const authOptions: NextAuthOptions = {
+    pages: {
+        signIn: '/auth/signin',
+    },
     session: {
         strategy: "jwt",
     },
@@ -31,11 +34,11 @@ export const authOptions: NextAuthOptions = {
                     }
                 })
 
-                if (!user) return null
+                if (!user) throw new Error('User not found')
 
                 const isPasswordValid = await compare(credentials.password, user.password)
 
-                if (!isPasswordValid) return null
+                if (!isPasswordValid) throw new Error('Invalid password')
 
                 return {
                     id: user.id + '',
