@@ -1,3 +1,9 @@
-export default function Dashboard() {
-    return <>Super Secret Page</>
+import { Dashboard } from "@/components/dashboard/dashboard";
+
+export default function DashboardPage() {
+    return (
+        <main>
+            <Dashboard />
+        </main>
+    )
 }
