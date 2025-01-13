@@ -1,7 +1,9 @@
-import React from 'react'
+import DashboardTitle from "../dashboardTitle"
 
 export const Dashboard = () => {
     return (
-        <div className='bg-white rounded-lg pb-4 shadow h-[200vh]'></div>
+        <>
+            <DashboardTitle title="Dashboard" />
+        </>
     )
 }

@@ -11,14 +11,10 @@ type dataType = {
     password: string
 }
 
-export async function listUsers () {
+export async function fetchCurrentUser() {
     const session = await getServerSession()
     if(!session) return new NextResponse(null, {status: 401})
-        
-
-    const users = await prisma.user.findMany()
-    return users
-} 
+}
 
 export async function createUser (data: dataType) {
     const session = await getServerSession()
