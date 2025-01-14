@@ -2,7 +2,7 @@
 import { FiChevronDown, FiChevronUp } from "react-icons/fi"
 import Image from "next/image";
 import Logo from "@/assets/logo.png"
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from "../ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from "../../ui/dropdown-menu";
 import { signOut } from "next-auth/react";
 import { UserType } from "@/types/user";
 

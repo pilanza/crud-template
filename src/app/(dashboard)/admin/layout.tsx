@@ -1,7 +1,9 @@
-import { Sidebar } from "@/components/sidebar/sidebar";
+import { Sidebar } from "@/components/dashboardComponents/sidebar/sidebar";
 import { Inter } from "next/font/google"
 
 const inter = Inter({subsets: ["latin"]});
+
+export const apiUrl = "http://localhost:3000/api"
 
 export default function DashboardLayout({
   children,
