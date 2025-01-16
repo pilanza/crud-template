@@ -1,4 +1,4 @@
-export interface PaginateResponseType {
+export interface ResponseType {
     metadata?: {
         totalPages: number
         currentPage: number

@@ -1,11 +1,11 @@
 'use client'
 
 import { apiUrl } from "@/app/(dashboard)/admin/layout"
-import { Pagination, PaginationContent, PaginationItem, PaginationNext, PaginationPrevious } from "@/components/ui/pagination"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { PaginateResponseType } from "@/types/paginate"
 import { UserType } from "@/types/user"
 import { useEffect, useState } from "react"
+import { DashboardPagination } from "../pagination/pagination"
+import { ResponseType } from "@/types/response"
 
 export function UserTable() {
     const [totalPages, setTotalPages] = useState(0)
@@ -16,7 +16,7 @@ export function UserTable() {
     const fetchData = async (page=0) => {
         const response = await fetch(`${apiUrl}/users?p=${page}`, {
             method:'GET'
-        }).then((res) => res.json()) as PaginateResponseType
+        }).then((res) => res.json()) as ResponseType
         
         setTotalPages(response.metadata.totalPages)
         setCurrentPage(response.metadata.currentPage)
@@ -52,24 +52,7 @@ export function UserTable() {
                         })}
                     </TableBody>
                 </Table>
-                <div className="pt-5">
-                    <Pagination>
-                        <PaginationContent>
-                            <PaginationItem>
-                                <PaginationPrevious 
-                                    className="cursor-pointer" 
-                                    onClick={() => fetchData(currentPage>0 ? +currentPage-1 : currentPage)}
-                                />
-                            </PaginationItem>
-                            <PaginationItem>
-                                <PaginationNext 
-                                    className="cursor-pointer" 
-                                    onClick={() => fetchData(currentPage<totalPages-1 ? +currentPage+1 : currentPage)}
-                                />
-                            </PaginationItem>
-                        </PaginationContent>
-                    </Pagination>
-                </div>
+                <DashboardPagination fetchData={fetchData} totalPages={totalPages} currentPage={currentPage}/>
             </div>
         </div>
     )
