@@ -1,4 +1,4 @@
-import { Users } from "@/components/dashboardComponents/usersPage/users";
+import { Users } from "@/components/dashboardComponents/pages/usersPage/users";
 
 export default function UsersPage() {
     return (

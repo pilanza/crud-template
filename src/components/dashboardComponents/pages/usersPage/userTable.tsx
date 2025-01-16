@@ -4,8 +4,9 @@ import { apiUrl } from "@/app/(dashboard)/admin/layout"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { UserType } from "@/types/user"
 import { useEffect, useState } from "react"
-import { DashboardPagination } from "../pagination/pagination"
+import { DashboardPagination } from "../../pagination/pagination"
 import { ResponseType } from "@/types/response"
+import { SearchBar } from "../../searchBar/searchBar"
 
 export function UserTable() {
     const [totalPages, setTotalPages] = useState(0)
@@ -13,8 +14,8 @@ export function UserTable() {
     const [data, setcurrentData] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
 
-    const fetchData = async (page=0) => {
-        const response = await fetch(`${apiUrl}/users?p=${page}`, {
+    const fetchData = async (page=0, query="") => {
+        const response = await fetch(`${apiUrl}/users?p=${page}&q=${query}`, {
             method:'GET'
         }).then((res) => res.json()) as ResponseType
         
@@ -31,6 +32,9 @@ export function UserTable() {
     return(
         <div className="flex w-full justify-center items-center">
             <div className="w-[90%]">
+                <div className="items-start justify-start mb-5">
+                    <SearchBar fetchData={fetchData}/>
+                </div>
                 <Table>
                     <TableHeader>
                         <TableRow>

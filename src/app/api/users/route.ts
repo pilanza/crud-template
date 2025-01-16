@@ -12,10 +12,25 @@ export async function GET(request: NextRequest) {
     if(!session) return new NextResponse(null, {status: 401})
 
     const currentPage = request.nextUrl.searchParams.get('p') ?? 0
+    const query = request.nextUrl.searchParams.get('q') ?? ""
 
     const users = await prisma.user.findMany({
         skip:+currentPage * page_size,
-        take:page_size
+        take:page_size,
+        where: {
+            OR: [
+                {
+                    username: {
+                        contains: query,
+                    }
+                },
+                {
+                    email: {
+                        contains: query
+                    }
+                }
+            ]
+        }
     })
 
     const total = await prisma.user.count();

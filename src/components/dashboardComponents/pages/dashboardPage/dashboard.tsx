@@ -1,4 +1,4 @@
-import DashboardTitle from "../dashboardTitle"
+import DashboardTitle from "../../dashboardTitle"
 
 export const Dashboard = () => {
     return (
