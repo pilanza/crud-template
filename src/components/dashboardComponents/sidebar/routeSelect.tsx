@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import React from 'react'
 import { IconType } from 'react-icons'
 import { FiHome, FiUser } from 'react-icons/fi'
@@ -27,7 +27,8 @@ const Route = ({ Icon, title, selected, onClick } : {
 }
 
 export const RouteSelect = () => {
-    const [route, setRoute] = React.useState('/')
+    const pathname = usePathname().split('/')[2] ?? '/'
+    const [route, setRoute] = React.useState(pathname)
     const router = useRouter()
 
     const handleClick = (route: string) => {
