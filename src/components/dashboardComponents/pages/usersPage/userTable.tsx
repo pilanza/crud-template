@@ -7,6 +7,7 @@ import { useEffect, useState } from "react"
 import { DashboardPagination } from "../../pagination/pagination"
 import { ResponseType } from "@/types/response"
 import { SearchBar } from "../../searchBar/searchBar"
+import { DialogCreateUser } from "./dialog/dialog-create-user"
 
 export function UserTable() {
     const [totalPages, setTotalPages] = useState(0)
@@ -32,8 +33,13 @@ export function UserTable() {
     return(
         <div className="flex w-full justify-center items-center">
             <div className="w-[90%]">
-                <div className="items-start justify-start mb-5">
-                    <SearchBar fetchData={fetchData}/>
+                <div className="flex mb-5 flex-row">
+                    <div className="items-start w-1/2">
+                        <SearchBar fetchData={fetchData}/>
+                    </div>
+                    <div className="flex justify-end w-1/2">
+                        <DialogCreateUser />
+                    </div>
                 </div>
                 <Table>
                     <TableHeader>
