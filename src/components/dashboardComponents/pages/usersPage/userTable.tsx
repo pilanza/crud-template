@@ -38,7 +38,7 @@ export function UserTable() {
                         <SearchBar fetchData={fetchData}/>
                     </div>
                     <div className="flex justify-end w-1/2">
-                        <DialogCreateUser />
+                        <DialogCreateUser fetchData={fetchData} />
                     </div>
                 </div>
                 <Table>

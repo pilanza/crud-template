@@ -1,4 +1,3 @@
-import { UserType } from "@/types/user";
 import { PrismaClient } from "@prisma/client";
 import { hash } from "bcrypt";
 import { getServerSession } from "next-auth";
@@ -47,10 +46,11 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(json)
 }
 
-export async function POST(data: UserType) {
+export async function POST(request: Request) {
     const session = await getServerSession()
     if(!session) return new NextResponse(null, {status: 401})
-
+    
+    const data = await request.json()
     let password = ''
     if(data.password) password = await hash(data.password, 12)
     const user = await prisma.user.create({
