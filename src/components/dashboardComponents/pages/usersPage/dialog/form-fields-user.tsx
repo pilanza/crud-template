@@ -14,7 +14,7 @@ export default function FormFieldsUser({user, readOnly}: FormFieldsUserProps) {
         <>
             <div>
                 <div className="pb-5">
-                    <Label required>Username</Label>
+                    <Label required={!user}>Username</Label>
                     <Input 
                         name="username"
                         placeholder={"Type the username"}
@@ -26,7 +26,7 @@ export default function FormFieldsUser({user, readOnly}: FormFieldsUserProps) {
                 </div>
 
                 <div className="pb-5">
-                    <Label required>Email</Label>
+                    <Label required={!user}>Email</Label>
                     <Input 
                         name="email"
                         placeholder={"Type the email"}
@@ -39,7 +39,7 @@ export default function FormFieldsUser({user, readOnly}: FormFieldsUserProps) {
 
                 {!readOnly && (
                     <div className="pb-5">
-                        <Label required>Password</Label>
+                        <Label required={!user}>Password</Label>
                         <Input 
                             name="password"
                             placeholder="Type the password"
