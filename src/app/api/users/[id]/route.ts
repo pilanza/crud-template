@@ -18,28 +18,32 @@ export async function PUT(request: Request, { params }: { params: { id: string }
     const session = await getServerSession()
     if(!session) return new NextResponse(null, {status: 401})
 
-    const id = params.id
+    const { id } = await params
     const data = await request.json()
     
-    let password = ''
-    if(data.password) password = await hash(data.password, 12)
+    let password;
+    if(data.password) {
+        password = await hash(data.password, 12);
+    }
+
     const user = await prisma.user.update({
         where: {id: parseInt(id, 10)}, 
         data: {
             username: data.username || null,
             email: data.email || null,
-            password: password || null,
-        }})
+            password: password,
+        }
+    })
     
-        return NextResponse.json(user)
+    return new NextResponse(JSON.stringify(user), { status: 201 })
 }
 
-export async function DELETE({ params }: { params: { id: string } }) {
+export async function DELETE(request: Request, { params }: { params: { id: string } }) {
     const session = await getServerSession()
     if(!session) return new NextResponse(null, {status: 401})
 
-    const id = params.id
+    const { id } = await params
     await prisma.user.delete({where: {id: parseInt(id, 10)}})
 
-    return NextResponse.json("Deleted Successfully")
+    return new NextResponse(JSON.stringify('Deleted successfully!'), { status: 201 })
 }

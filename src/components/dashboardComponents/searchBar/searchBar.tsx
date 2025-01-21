@@ -8,7 +8,7 @@ export const SearchBar = ({fetchData}: queryType) => {
     const debouncedQuery = useDebounce(query)
 
     useEffect(() => {
-        fetchData(0, query)
+        if(query != '') fetchData(0, query)
     }, [debouncedQuery])
     
     return (

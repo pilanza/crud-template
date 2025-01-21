@@ -8,6 +8,9 @@ import { DashboardPagination } from "../../pagination/pagination"
 import { ResponseType } from "@/types/response"
 import { SearchBar } from "../../searchBar/searchBar"
 import { DialogCreateUser } from "./dialog/dialog-create-user"
+import { DialogShowUser } from "./dialog/dialog-show-user"
+import { DialogEditUser } from "./dialog/dialog-edit-user"
+import { DialogDeleteUser } from "./dialog/dialog-delete-user"
 
 export function UserTable() {
     const [totalPages, setTotalPages] = useState(0)
@@ -57,6 +60,11 @@ export function UserTable() {
                                     <TableCell>{item.id}</TableCell>
                                     <TableCell>{item.username}</TableCell>
                                     <TableCell>{item.email}</TableCell>
+                                    <TableCell>
+                                        <DialogShowUser user={item} />
+                                        <DialogEditUser user={item} fetchData={fetchData} />
+                                        <DialogDeleteUser user={item} fetchData={fetchData}/>
+                                    </TableCell>
                                 </TableRow>
                             )
                         })}

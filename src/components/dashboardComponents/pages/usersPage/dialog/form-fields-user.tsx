@@ -17,7 +17,8 @@ export default function FormFieldsUser({user, readOnly}: FormFieldsUserProps) {
                     <Label required>Username</Label>
                     <Input 
                         name="username"
-                        placeholder={user?.username || "Type the username"}
+                        placeholder={"Type the username"}
+                        defaultValue={user?.username || ''}
                         type="text"
                         readOnly={readOnly}
                         required
@@ -28,27 +29,31 @@ export default function FormFieldsUser({user, readOnly}: FormFieldsUserProps) {
                     <Label required>Email</Label>
                     <Input 
                         name="email"
-                        placeholder={user?.email || "Type the email"}
+                        placeholder={"Type the email"}
+                        defaultValue={user?.email || ''}
                         type="email"
                         readOnly={readOnly}
                         required
                     />
                 </div>
 
-                <div className="pb-5">
-                    <Label required>Password</Label>
-                    <Input 
-                        name="password"
-                        placeholder="Type the password"
-                        type="password"
-                        readOnly={readOnly}
-                        required
-                    />
-                </div>
+                {!readOnly && (
+                    <div className="pb-5">
+                        <Label required>Password</Label>
+                        <Input 
+                            name="password"
+                            placeholder="Type the password"
+                            type="password"
+                            readOnly={readOnly}
+                        />
+                    </div>
+                )}
             </div>
-            <DialogFooter>
-                <Button variant="outline" type="submit">Save</Button>
-            </DialogFooter>
+            {!readOnly && (
+                <DialogFooter>
+                    <Button variant="outline" type="submit">Save</Button>
+                </DialogFooter>
+            )}
         </>
     )
 }
