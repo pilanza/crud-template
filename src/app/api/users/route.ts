@@ -51,9 +51,14 @@ export async function POST(request: Request) {
     if(!session) return new NextResponse(null, {status: 401})
     
     const data = await request.json()
-    let password = ''
-    if(data.password) password = await hash(data.password, 12)
-    const user = await prisma.user.create({
+
+    let user = await prisma.user.findFirst({where: {email: data.email}})
+    if(user) {
+        throw new Error('User already exists')
+    }
+
+    const password  = await hash(data.password, 12)
+    user = await prisma.user.create({
         data: {
             username: data.username || null,
             email: data.email || null,
