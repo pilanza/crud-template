@@ -30,8 +30,8 @@ export const DialogEditUser = ({user, fetchData}: EditUserProps) => {
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-                <DialogTrigger className="px-2 py-1 bg-yellow-600 rounded-md mx-2">
-                    <MdModeEdit className="size-6 text-white"/>
+                <DialogTrigger className="px-2 py-1 border border-yellow-500 text-yellow-500 hover:text-white hover:bg-yellow-500 rounded-md mx-2">
+                    <MdModeEdit className="size-6 "/>
                 </DialogTrigger>
             <DialogContent>
                 <DialogHeader>

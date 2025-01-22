@@ -30,8 +30,8 @@ export const DialogDeleteUser = ({user, fetchData}: DeleteUserProps) => {
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-                <DialogTrigger className="px-2 py-1 bg-red-600 rounded-md">
-                    <MdDeleteOutline className="size-6 text-white"/>
+                <DialogTrigger className="px-2 py-1 border border-red-600 text-red-600 hover:text-white hover:bg-red-600 rounded-md">
+                    <MdDeleteOutline className="size-6 "/>
                 </DialogTrigger>
             <DialogContent>
                 <DialogHeader>

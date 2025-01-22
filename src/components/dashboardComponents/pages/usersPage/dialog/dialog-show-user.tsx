@@ -12,8 +12,8 @@ interface ShowUserProps {
 export const DialogShowUser = ({user}: ShowUserProps) => {
     return (
         <Dialog>
-                <DialogTrigger className="px-2 py-1 bg-blue-600 rounded-md">
-                    <IoMdInformationCircleOutline className="size-6 text-white"/>
+                <DialogTrigger className="px-2 py-1 border border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 rounded-md">
+                    <IoMdInformationCircleOutline className="size-6"/>
                 </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
