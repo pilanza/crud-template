@@ -4,8 +4,8 @@ import { Dialog, DialogHeader, DialogTrigger, DialogContent, DialogDescription, 
 import FormFieldsUser from "./form-fields-user"
 import { MdModeEdit } from "react-icons/md";
 import { UserType } from "@/types/user";
-import { apiUrl } from "@/app/(dashboard)/admin/layout";
 import { useState } from "react";
+import { api } from "@/services/api";
 
 interface EditUserProps {
     user: UserType
@@ -16,16 +16,18 @@ export const DialogEditUser = ({user, fetchData}: EditUserProps) => {
     const [open, setOpen] = useState<boolean>()
     
     const editUser = async (formData: UserType) => {
-        await fetch(`${apiUrl}/users/${user.id}`, {
-            method: 'PUT',
-            body: JSON.stringify(formData)
-        }).then(res => { 
-                if(res.status === 201) {
-                    setOpen(false)
-                    fetchData()
-                }
+        await api(
+            `users/${user.id}`, 
+            {
+                method: 'PUT',
+                body: JSON.stringify(formData)
             }
-        )
+        ).then(res => { 
+            if(res.status === 201) {
+                setOpen(false)
+                fetchData()
+            }
+        })
     }
 
     return (

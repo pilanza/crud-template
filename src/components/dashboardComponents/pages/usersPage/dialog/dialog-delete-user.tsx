@@ -3,10 +3,10 @@
 import { Dialog, DialogHeader, DialogTrigger, DialogContent, DialogTitle, DialogFooter } from "@/components/ui/dialog"
 import { MdDeleteOutline } from "react-icons/md";
 import { UserType } from "@/types/user";
-import { apiUrl } from "@/app/(dashboard)/admin/layout";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { DialogDescription } from "@radix-ui/react-dialog";
+import { api } from "@/services/api";
 
 interface DeleteUserProps {
     user: UserType
@@ -17,16 +17,18 @@ export const DialogDeleteUser = ({user, fetchData}: DeleteUserProps) => {
     const [open, setOpen] = useState<boolean>()
     
     const deleteUser = async () => {
-        await fetch(`${apiUrl}/users/${user.id}`, {
-            method: 'DELETE',
-        }).then(res => { 
-                if(res.status === 201) {
-                    setOpen(false)
-                    fetchData()
-                }
+        await api(
+            `users/${user.id}`, 
+            {
+                method: 'DELETE'
             }
-        )
-    }
+        ).then(res => { 
+            if(res.status === 201) {
+                setOpen(false)
+                fetchData()
+            }
+        }
+    )}
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>

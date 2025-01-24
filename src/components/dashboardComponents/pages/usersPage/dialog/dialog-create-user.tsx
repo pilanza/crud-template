@@ -1,26 +1,30 @@
 'use client'
 
-import { apiUrl } from "@/app/(dashboard)/admin/layout"
 import { Dialog, DialogHeader, DialogTrigger, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog"
 import FormFieldsUser from "./form-fields-user"
 import { UserType } from "@/types/user"
 import { useState } from "react"
 import { queryType } from "@/types/query"
+import { api } from "@/services/api"
+import { toast, ToastContainer } from "react-toastify"
 
 export const DialogCreateUser = ({fetchData}: queryType) => {
     const [open, setOpen] = useState<boolean>()
 
     const createUser = async (formData: UserType) => {
-        await fetch(`${apiUrl}/users`, {
-            method: 'POST',
-            body: JSON.stringify(formData)
-        }).then(res => { 
-                if(res.status === 201) {
-                    setOpen(false)
-                    fetchData()
-                }
+        await api(
+            `users`,
+            {
+                method: 'POST',
+                body: JSON.stringify(formData)
             }
-        )
+        ).then(res => { 
+            if(res.status === 201) {
+                setOpen(false)
+                fetchData()
+            } 
+            else if(res.status === 400 && res.error) toast(res.error)
+        }).catch(e => console.log(e))
     }
 
     return (
@@ -46,6 +50,7 @@ export const DialogCreateUser = ({fetchData}: queryType) => {
                     <FormFieldsUser/>
                 </form>
             </DialogContent>
+            <ToastContainer />
         </Dialog>
     )
 }

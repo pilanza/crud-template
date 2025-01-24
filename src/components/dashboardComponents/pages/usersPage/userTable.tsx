@@ -10,7 +10,7 @@ import { DialogCreateUser } from "./dialog/dialog-create-user"
 import { DialogShowUser } from "./dialog/dialog-show-user"
 import { DialogEditUser } from "./dialog/dialog-edit-user"
 import { DialogDeleteUser } from "./dialog/dialog-delete-user"
-import { apiUrl } from "@/app/(dashboard)/admin/layout"
+import { api } from "@/services/api"
 
 export function UserTable() {
     const [totalPages, setTotalPages] = useState(0)
@@ -19,9 +19,10 @@ export function UserTable() {
     const [isLoading, setIsLoading] = useState(true)
 
     const fetchData = async (page=0, query="") => {
-        const response = await fetch(`${apiUrl}/users?p=${page}&q=${query}`, {
-            method:'GET'
-        }).then((res) => res.json()) as ResponseType
+        const response = await api<UserType>(
+            `users?p=${page}&q=${query}`, 
+            { method: 'GET' } 
+        ).then((res) => res.data) as ResponseType
         
         setTotalPages(response.metadata.totalPages)
         setCurrentPage(response.metadata.currentPage)
