@@ -26,7 +26,11 @@ const Route = ({ Icon, title, selected, onClick } : {
     )
 }
 
-export const RouteSelect = () => {
+interface RouteProps {
+    setOpen?: (arg0: boolean) => void
+}
+
+export const RouteSelect = ({setOpen}: RouteProps) => {
     const pathname = usePathname().split('/')[2] ?? '/'
     const [route, setRoute] = React.useState(pathname)
     const router = useRouter()
@@ -34,6 +38,7 @@ export const RouteSelect = () => {
     const handleClick = (route: string) => {
         setRoute(route)
         router.push(`/admin/${route}`)
+        if(setOpen) setOpen(false)
     }
 
     return (

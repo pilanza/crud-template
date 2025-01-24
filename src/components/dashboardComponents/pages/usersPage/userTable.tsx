@@ -1,6 +1,5 @@
 'use client'
 
-import { apiUrl } from "@/app/(dashboard)/admin/layout"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { UserType } from "@/types/user"
 import { useEffect, useState } from "react"
@@ -11,6 +10,7 @@ import { DialogCreateUser } from "./dialog/dialog-create-user"
 import { DialogShowUser } from "./dialog/dialog-show-user"
 import { DialogEditUser } from "./dialog/dialog-edit-user"
 import { DialogDeleteUser } from "./dialog/dialog-delete-user"
+import { apiUrl } from "@/app/(dashboard)/admin/layout"
 
 export function UserTable() {
     const [totalPages, setTotalPages] = useState(0)
@@ -60,10 +60,10 @@ export function UserTable() {
                                     <TableCell>{item.id}</TableCell>
                                     <TableCell>{item.username}</TableCell>
                                     <TableCell>{item.email}</TableCell>
-                                    <TableCell>
-                                        <DialogShowUser user={item} />
-                                        <DialogEditUser user={item} fetchData={fetchData} />
-                                        <DialogDeleteUser user={item} fetchData={fetchData}/>
+                                    <TableCell className=" whitespace-nowrap">
+                                            <DialogShowUser user={item} />
+                                            <DialogEditUser user={item} fetchData={fetchData} />
+                                            <DialogDeleteUser user={item} fetchData={fetchData}/>  
                                     </TableCell>
                                 </TableRow>
                             )

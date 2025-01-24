@@ -1,10 +1,7 @@
-import { getServerSession } from "next-auth";
 import { DropdownAccountToggle } from "./dropdownAccountToggle";
+import { UserType } from "@/types/user";
 
-export default async function AccountToggle() {
-    const session = await getServerSession()
-    const user = session.user
-
+export default function AccountToggle({user}:{user: UserType}) {
     return (
         <DropdownAccountToggle user={user} />
     )

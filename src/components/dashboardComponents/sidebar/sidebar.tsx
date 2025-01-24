@@ -1,14 +1,12 @@
-import React from 'react'
-import AccountToggle from './accountToggle'
-import { RouteSelect } from './routeSelect'
+import { getServerSession } from 'next-auth'
+import { SidebarContent } from './sidebarContent'
 
-export const Sidebar = () => {
-    return (
+export const Sidebar = async () => {
+        const session = await getServerSession()
+        const user = session.user
+        return (
         <div>
-            <div className='sticky top-4 h-100%'>
-                <AccountToggle />
-                <RouteSelect />
-            </div>
+           <SidebarContent user={user}/>
         </div>
     )
 }
