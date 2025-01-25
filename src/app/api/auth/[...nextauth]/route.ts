@@ -2,15 +2,19 @@ import NextAuth, { User, type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaClient } from "@prisma/client";
 import { compare } from "bcrypt";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 const prisma = new PrismaClient()
 
 export const authOptions: NextAuthOptions = {
+    adapter: PrismaAdapter(prisma),
     pages: {
         signIn: '/auth/signin',
     },
     session: {
         strategy: "jwt",
+        maxAge: 30*60,
+        updateAge: 5*60
     },
     providers: [
         CredentialsProvider({
@@ -49,7 +53,15 @@ export const authOptions: NextAuthOptions = {
         })
     ],
     callbacks: {
-        session: ({ session, token }) => {
+        session: async ({ session, token }) => {
+            const userExists = await prisma.user.findUnique({
+                where: {email: session.user.email}
+            })
+
+            if(!userExists) {
+                throw new Error('User deleted!')
+            }
+
             return {
                 ...session,
                 user: {
